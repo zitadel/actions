@@ -1,4 +1,4 @@
-# Marketplace for ZITADLE Actions
+# Marketplace for ZITADEL Actions
 
 An Identity and Management system is a very interactive place. 
 ZITADEL has built in functionality to react to its events.
