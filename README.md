@@ -11,4 +11,7 @@ This repository includes different javascript snippets that can be used in your 
 
 If you have written an action for your ZITADEL instance that can also be helpful to others we love to get it inlcuded in this repository.
 
-### Contibution guildelines
+### Contribution guidelines
+
+1. Description: Please write a comment in your javascript function that describes what it does and when to use.
+2. Configuration: Add a line that tells the user of the function how the flow and trigger has to be configured
