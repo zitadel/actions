@@ -6,7 +6,7 @@
  * @param ctx
  * @param api
  */
-function setUserMetadataAfterLocalAuthentication(ctx, api) {
+function storeLastErrorStateToMetadata(ctx, api) {
   const mgmt = api.v1.mgmt;
   const authRequest = ctx.v1.authRequest;
   const goCtx = ctx.v1.ctx;
