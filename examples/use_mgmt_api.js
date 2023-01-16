@@ -1,3 +1,11 @@
+/**
+ * Store the last error state by login factor to the users metadata
+ *
+ * Flow: Internal Authentication, Trigger: Post Authentication
+ *
+ * @param ctx
+ * @param api
+ */
 function setUserMetadataAfterLocalAuthentication(ctx, api) {
   const mgmt = api.v1.mgmt;
   const authRequest = ctx.v1.authRequest;
