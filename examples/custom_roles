@@ -1,0 +1,16 @@
+/**
+ * sets the roles an additional claim in the token with roles as value an project as key
+ *
+ * Flow: Complement token, Triggers: Pre Userinfo creation, Pre access token creation
+ *
+ * @param ctx
+ * @param api
+ */
+function flatRoles(ctx, api) {
+  if (ctx.v1.user.grants.count == 0) {
+    return;
+  }
+  
+  ctx.v1.user.grants.grants.forEach(
+    claim => api.v1.claims.setClaim('example:flat:role:'+claim.projectId, claim.roles));
+}
