@@ -2,7 +2,10 @@
  * sets the roles an additional claim in the token with roles as value an project as key
  * 
  * The role claims of the token look like the following:
+ * 
+ * // added by the code below
  * "example:flat:role:201982826479084796": ["asdf"],
+ * // added automatically
  * "urn:zitadel:iam:org:project:roles": {
  *   "asdf": {
  *     "201982826478953724": "zitadel.localhost"
