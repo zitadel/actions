@@ -4,7 +4,7 @@
  * The role claims of the token look like the following:
  * 
  * // added by the code below
- * "example:flat:role:201982826479084796": ["asdf"],
+ * "my:zitadel:grants": ["{projectId}:{roleName}", "{projectId}:{roleName}", ...],
  * // added automatically
  * "urn:zitadel:iam:org:project:roles": {
  *   "asdf": {
@@ -18,10 +18,16 @@
  * @param api
  */
 function flatRoles(ctx, api) {
-  if (ctx.v1.user.grants.count == 0) {
+  if (ctx.v1.user.grants === undefined || ctx.v1.user.grants.count == 0) {
     return;
   }
-  
-  ctx.v1.user.grants.grants.forEach(
-    claim => api.v1.claims.setClaim('example:flat:role:'+claim.projectId, claim.roles));
+
+  let grants = [];
+  ctx.v1.user.grants.grants.forEach(claim => {
+    claim.roles.forEach(role => {
+        grants.push(claim.projectId+':'+role)  
+    })
+  })
+
+  api.v1.claims.setClaim('my:zitadel:grants', grants)
 }
