@@ -1,0 +1,7 @@
+function mapGitHubOAuth(ctx, api) {
+  if (ctx.v1.externalUser.externalIdpId != "206217465405899009") {
+    return
+  }
+  api.setFirstName(ctx.v1.providerInfo.name);
+  api.setLastName(ctx.v1.providerInfo.name);
+}
