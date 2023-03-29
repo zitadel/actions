@@ -1,0 +1,19 @@
+/**
+ * Set first and lastname of a user on just in time provisioning for gitlab.
+ * Useful if you like to fill the first and lastname with the name stored on gitlab, so the user doesn't have to fill himself.
+ *
+ * Flow: External Authentication, Trigger: Post Authentication
+ *
+ * @param ctx
+ * @param api
+ */
+let log = require('zitadel/log')
+
+function mapGitLabOAuth(ctx, api) {
+    log.log(JSON.stringify(ctx.v1.providerInfo))
+  if (ctx.v1.externalUser.externalIdpId != "your-idp-id") {
+    return
+  }
+  api.setFirstName(ctx.v1.providerInfo.name);
+  api.setLastName(ctx.v1.providerInfo.name);
+}
