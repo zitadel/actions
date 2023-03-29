@@ -7,10 +7,7 @@
  * @param ctx
  * @param api
  */
-let log = require('zitadel/log')
-
 function mapGitLabOAuth(ctx, api) {
-    log.log(JSON.stringify(ctx.v1.providerInfo))
   if (ctx.v1.externalUser.externalIdpId != "your-idp-id") {
     return
   }
