@@ -18,7 +18,7 @@
  * @param api
  */
 function flatRoles(ctx, api) {
-  if (ctx.v1.user.grants === undefined || ctx.v1.user.grants.count == 0) {
+  if (ctx.v1.user.grants === undefined || ctx.v1.user.grants.length == 0) {
     return;
   }
 
