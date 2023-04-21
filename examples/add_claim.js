@@ -1,5 +1,11 @@
-// this action can be used in the triggers of flow type `Complement Claims`
+/**
+ * Add an additional claim to the token / userinfo, if it's not already present
+ *
+ * Flow: Complement token, Triggers: Pre Userinfo creation, Pre access token creation
+ *
+ * @param ctx
+ * @param api
+ */
 function addClaim(ctx, api) {
-  // this line adds the claim to the token, if it's not already present
-  api.v1.userinfo.setClaim('year', 2023)
+  api.v1.claims.setClaim('year', 2023)
 }
