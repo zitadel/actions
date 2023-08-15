@@ -3,7 +3,7 @@
  * This example will add the resourceOwner as custom attribute `orgID`.
  * It additionally shows how get the user's project authorization and add each role in the form of `projectId:role` as a `Roles` attribute.
  *
- * Flow: Customize SAMLResponse, Triggers: Pre SAMLResponse creation
+ * Flow: Complement SAMLResponse, Triggers: Pre SAMLResponse creation
  *
  * @param ctx
  * @param api
