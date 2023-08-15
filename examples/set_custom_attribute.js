@@ -1,6 +1,6 @@
 /**
  * Add an custom attribute to the SAMLResponse, if it's not already present.
- * This example will add the resourceOwner as custom attribute `orgID`.
+ * This example will add the resourceOwner as custom attribute `OrgID`.
  * It additionally shows how get the user's project authorization and add each role in the form of `projectId:role` as a `Roles` attribute.
  *
  * Flow: Complement SAMLResponse, Triggers: Pre SAMLResponse creation
@@ -10,7 +10,7 @@
  */
 function setCustomAttribute(ctx, api) {
     const user = ctx.v1.getUser()
-    api.v1.attributes.setCustomAttribute('orgID', '', user.resourceOwner)
+    api.v1.attributes.setCustomAttribute('OrgID', '', user.resourceOwner)
 
     if (ctx.v1.user.grants == undefined || ctx.v1.user.grants.count == 0) {
         return;
