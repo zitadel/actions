@@ -18,7 +18,7 @@ function mapOktaOauth(ctx, api) {
   }
   api.setFirstName(ctx.v1.providerInfo.name);
   api.setLastName(ctx.v1.providerInfo.name);
-  api.setEmailVerified(ctx.v1.providerInfo.email)
+  api.setEmailVerified(true)
   api.setEmail(ctx.v1.providerInfo.email)
   api.setPreferredUsername(ctx.v1.providerInfo.preferred_username)
 }
