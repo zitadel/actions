@@ -9,18 +9,15 @@
 function add_picture_claim_from_idp_metadata(ctx, api) {
   // return if picture already set
   if (ctx.v1.claims && ctx.v1.claims.picture) {
-      return;
+    return;
   }
 
   const metadata = ctx.v1.user.getMetadata();
 
-  for (let i in metadata.metadata) {
-      if (metadata.metadata[i].key == "idpPicture") {
-          let picture = metadata.metadata[i].value
-          if (picture) {
-              api.v1.claims.setClaim('picture', picture);
-          }
-          break
-      }
-  }
+  // assign picture from metadata, if present
+  metadata.metadata.forEach(({ key, value: picture }) => {
+    if (key === 'idpPicture' && picture) {
+      api.v1.claims.setClaim('picture', picture);
+    }
+  });
 }
