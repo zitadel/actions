@@ -1,7 +1,7 @@
 /**
  * Add metadata if metadata are available
  *
- * Flow: External Authentication or Internal Authentication, Trigger: Pre Creation, Post Creation, Post Authentication
+ * Flow: External Authentication or Internal Authentication, Trigger: Pre Creation, Post Authentication
  *
  * @param ctx
  * @param api

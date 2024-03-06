@@ -1,7 +1,7 @@
 /**
  * Add a usergrant to a new created/registered user
  *
- * Flow: External Authentication, Trigger: Post creation
+ * Flow: Internal Authentication or External Authentication, Trigger: Post creation
  *
  * @param ctx
  * @param api
