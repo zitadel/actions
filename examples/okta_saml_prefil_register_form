@@ -26,6 +26,6 @@ function prefilRegisterFromOKTASAML(ctx, api) {
 	    api.setEmailVerified(true);
     }
     if (username != undefined) {
-	    api.setPreferredUsername(email[0]);
+	    api.setPreferredUsername(username[0]);
     }    
 }
