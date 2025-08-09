@@ -1,6 +1,8 @@
 const logger = require("zitadel/log");
 const http = require('zitadel/http');
 const ZITADEL_INSTANCE = 'https://<ZITADEL domain>';
+// The Service user should have IAM_OWNER_VIEWER permission
+// (basically should be Manager of Zitadel instance to call the API)
 const SERVICE_USER_AUTH_TOKEN = '<PAT of Service User>';
 /**
  * sets the roles an additional claim in the token with roles as value an project as key
