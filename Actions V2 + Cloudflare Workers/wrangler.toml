@@ -1,0 +1,7 @@
+name = "<WORKER_NAME>"
+main = "./scripts/<SCRIPT_TO_DEPLOY>.js"
+compatibility_date = "2023-10-01"
+account_id = "<CLOUDFLARE_ACCOUNT_ID>"
+workers_dev = true
+[observability.logs]
+enabled = true
