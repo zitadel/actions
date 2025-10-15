@@ -5,7 +5,7 @@
 # Cloudflare Worker Deployment Script for Zitadel Actions V2
 
 This repository provides a Node.js utility for automating Cloudflare Worker deployments via the `wrangler` CLI. 
-It supports **production-ready workflows**, including environment variable (secret) injection for signature validation.
+It supports environment variable (secret) injection for signature validation.
 
 ---
 
@@ -47,7 +47,7 @@ npm install
 
 ### 2 - Update the wrangler.toml file with your worker data
 
-The `wrangler.toml` file defines your Worker’s configuration. Update it with your own project details before deploying:
+The `wrangler.toml` file defines your Worker’s configuration (name, script to deploy and account ID). Update it with your own project details before deploying:
 
 ```bash
 name = "<WORKER_NAME>"
