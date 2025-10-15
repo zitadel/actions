@@ -107,7 +107,6 @@ function mapIdpAttributes(receivedObject) {
   const idpId = idpInfo.idpId;
 
   if (idpId === "<IDP_ID_1>" && receivedObject.addHumanUser) {
-    // Example: SAML provider
     const attrs = idpAttributes.attributes;
     receivedObject.addHumanUser.email = {
       isVerified: true,
@@ -125,7 +124,6 @@ function mapIdpAttributes(receivedObject) {
   }
 
   else if (idpId === "<IDP_ID_2>" && receivedObject.addHumanUser) {
-    // Example: OIDC provider
     receivedObject.addHumanUser.email = {
       isVerified: idpAttributes.email_verified,
       email: idpAttributes.email,
