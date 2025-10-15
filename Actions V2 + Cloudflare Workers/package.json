@@ -1,5 +1,5 @@
 {
-  "name": "cloudflare-worker-webhook",
+  "name": "deploy-cloudflare-worker-actions-v2",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
