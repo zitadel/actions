@@ -13,6 +13,8 @@ const execOptions = {
   env: { ...process.env },
 };
 
+
+// This array should include the secrets that will be deployed to the worker
 const secrets = ["SIGNING_KEY"];
 
 for (const key of secrets) {
