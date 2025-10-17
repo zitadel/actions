@@ -2,20 +2,33 @@
     <img src="https://raw.githubusercontent.com/zitadel/zitadel/refs/heads/main/docs/static/logos/zitadel-logo-dark%402x.png" alt="Zitadel Logo" max-height="200px" width="auto" />
 </p>
 
-# Cloudflare Worker Deployment Script for Zitadel Actions V2
+# Cloudflare Worker Deployment Utility for **Zitadel Actions V2 Examples**
 
-This repository provides a Node.js utility for automating Cloudflare Worker deployments via the `wrangler` CLI. 
-It supports environment variable (secret) injection for signature validation.
+This repository provides a **Node.js deployment utility** that automates the process of publishing Zitadel Action V2 example scripts (found under the `/scripts` folder) to **Cloudflare Workers**.  
+
+It wraps the [`wrangler`](https://developers.cloudflare.com/workers/wrangler/) CLI to handle uploads, environment variable (secret) injection, and version updates — letting you test and iterate on your Zitadel Cloudflare integrations with minimal setup.
 
 ---
 
 ## Overview
 
-With this script, you can:
+With this utility, you can:
 
-- **Deploy** Worker scripts programmatically from Node.js (no manual upload).  
-- **Inject secrets** (such as `SIGNING_KEY`).  
-- **Update existing Workers** or create new ones.  
+- **Deploy any example script** from the `/scripts` folder to Cloudflare Workers with a single command.  
+- **Inject secrets automatically** (e.g. `SIGNING_KEY`, `ACCESS_TOKEN`, etc.) from your `.env` file.  
+- **Re-deploy or update existing Workers** without manual CLI interaction.  
+
+---
+
+## Example Use Cases
+
+You can use this deployment utility to publish examples like:
+
+- `lazy-user-migration.js` — automatically migrate legacy users from an external database during login.  
+- `datadog-forwarder.js` — forward Zitadel webhook events to Datadog for observability.  
+- `custom-claims.js` — add custom claims to your access token.
+
+Each script in `/scripts` is a ready-to-deploy Cloudflare Worker entrypoint — you only need to configure the environment variables.
 
 ---
 
@@ -29,12 +42,18 @@ With this script, you can:
 
 ## Environment setup
 
-Before running the script, create an `.env` file and add the following variables:
+Before running the script, create an `.env` file and add the required variables, for example:
 
 | Variable | Description |
 |-----------|--------------|
-| `CLOUDFLARE_API_TOKEN` | Cloudflare API token |
+| `CLOUDFLARE_API_TOKEN` | Cloudflare API token (not optional - used by the deploy script) |
 | `SIGNING_KEY` | Secret key to add to Worker env |
+
+
+Update the deploy script to insert the environment variables:
+```bash
+const secrets = ["SIGNING_KEY"];
+```
 
 ---
 
@@ -58,6 +77,7 @@ workers_dev = true
 [observability.logs]
 enabled = true
 ```
+You can switch the script path (main) to any example file in `/scripts`.
 
 ### 3 - Run the deploy node script
 ```bash
