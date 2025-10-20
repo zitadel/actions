@@ -1,7 +1,7 @@
-name = "<WORKER_NAME>"
-main = "./scripts/<SCRIPT_TO_DEPLOY>.js"
+# wrangler.toml
+name = "zitadel-action"
+main = "./scripts/custom-claims.js" # default file (overridden by button)
 compatibility_date = "2025-09-15"
-account_id = "<CLOUDFLARE_ACCOUNT_ID>"
 workers_dev = true
 [observability.logs]
 enabled = true

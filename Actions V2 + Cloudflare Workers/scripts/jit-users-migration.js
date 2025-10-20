@@ -1,21 +1,3 @@
-// Cloudflare Worker: Lazy User Migration for Zitadel
-// ----------------------------------------------------
-// This worker exposes two Zitadel action endpoints:
-//
-//   POST /action/list-users
-//   POST /action/set-session
-//
-// It validates Zitadel’s signature using HMAC-SHA256 and environment keys,
-// then uses Zitadel API to create and update migrated users.
-//
-// Required environment variables:
-//   - ZITADEL_DOMAIN
-//   - ACCESS_TOKEN
-//   - ZITADEL_ORG_ID
-//   - SETSESSION_SIGNING_KEY
-//   - LISTUSERS_SIGNING_KEY
-//
-
 export default {
   async fetch(req, env) {
     const url = new URL(req.url);

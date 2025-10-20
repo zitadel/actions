@@ -1,6 +1,3 @@
-//NOTE: This code is intended to demonstrate how to add a custom claim with a static
-// value, this may not be production ready.
-
 export default {
   async fetch(req, env) {
     // --- Path validation ---

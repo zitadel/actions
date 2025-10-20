@@ -27,6 +27,8 @@ You can use this deployment utility to publish examples like:
 - `jit-users-migration.js` — automatically migrate legacy users from an external database during login.  
 - `datadog-forwarder.js` — forward Zitadel webhook events to Datadog for observability.  
 - `custom-claims.js` — add custom claims to your access token.
+- `idp-mappings.js` — map attributes from an external IDP.
+- Etc.
 
 Each script in `/scripts` is a ready-to-deploy Cloudflare Worker entrypoint — you only need to configure the environment variables.
 
@@ -70,7 +72,7 @@ The `wrangler.toml` file defines your Worker’s configuration (name, script to 
 
 ```bash
 name = "<WORKER_NAME>"
-main = "./scripts/<SCRIPT_TO_DEPLOY>.js"
+main = "../scripts/<SCRIPT_TO_DEPLOY>.js"
 compatibility_date = "2023-10-01"
 account_id = "<CLOUDFLARE_ACCOUNT_ID>"
 workers_dev = true

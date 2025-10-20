@@ -25,7 +25,7 @@ This endpoint is triggered when the Zitadel hosted login page attempts to set ve
 
 ## Environment Variables
 
-Ensure the following environment variables are set in your `.env` file:
+Ensure the following environment variables are set:
 
 - `ZITADEL_DOMAIN`: The Zitadel domain (e.g., `auth.example.com`).
 - `ACCESS_TOKEN`: The access token for Zitadel APIs. It can be a PAT from a Service User with at least `ORG_OWNER` and `IAM_LOGIN_CLIENT` Manager Roles.
@@ -79,15 +79,34 @@ Repeat the same process for the SetSession Webhook, using type "restWebhook":
 }
 ```
 
+## Create the Action
+
+Open your **Zitadel Console** and navigate to the **Actions** tab.  
+
+1. For the **SetSession Action**:
+   - Create a new Action for the SetSession webhook → **Request**
+   - Select the Method **/zitadel.session.v2.SessionService/SetSession**
+
+2. For the **ListUsers Action**:
+   - Create a new Action for the ListUsers webhook → **Response**
+   - Select the Method **/zitadel.user.v2.UserService/ListUsers**
+
 Copy the signing key returned, this must be saved as the `SETSESSION_SIGNING_KEY` environment variable.
 
 ## Legacy Database
 
 The legacy database is mocked in this project. Replace the `LEGACY_DB` object in `server.js` with actual calls to your legacy database.
 
-## Usage
+## Deployment
 
-Check the [README](README.md) for instructions on how to set this up using Cloudflare Workers, or use the hosting provider of your choice.
+You can deploy this code directly from this repository for quick testing, or you can use the deployment utility.
+
+### Scripted Deployment
+
+Check the deployment utility [README](deployment-utility/README.md) for instructions on how to deploy this code and the required environment variabled to Cloudflare workers.
+
+### Deploy from this repository
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/Actions%20V2%20%2B%20Cloudflare%20Workers&path=scripts/jit-users-migration.js)
 
 ## Notes
 
