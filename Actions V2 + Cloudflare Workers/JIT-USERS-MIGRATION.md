@@ -84,11 +84,11 @@ Repeat the same process for the SetSession Webhook, using type "restWebhook":
 Open your **Zitadel Console** and navigate to the **Actions** tab.  
 
 1. For the **SetSession Action**:
-   - Create a new Action for the SetSession webhook -> **Request**
+   - Create a new Action for the SetSession webhook → **Request**
    - Select the Method **/zitadel.session.v2.SessionService/SetSession**
 
 2. For the **ListUsers Action**:
-   - Create a new Action for the ListUsers webhook -> **Response**
+   - Create a new Action for the ListUsers webhook → **Response**
    - Select the Method **/zitadel.user.v2.UserService/ListUsers**
 
 Copy the signing key returned, this must be saved as the `SETSESSION_SIGNING_KEY` environment variable.
@@ -97,15 +97,18 @@ Copy the signing key returned, this must be saved as the `SETSESSION_SIGNING_KEY
 
 The legacy database is mocked in this project. Replace the `LEGACY_DB` object in `server.js` with actual calls to your legacy database.
 
-## Usage
+## Deployment
 
-Check the [README](README.md) for instructions on how to set this up using Cloudflare Workers, or use the hosting provider of your choice.
+You can deploy this code directly from this repository for quick testing, or you can use the deployment utility.
+
+### Scripted Deployment
+
+Check the deployment utility [README](deployment-utility/README.md) for instructions on how to deploy this code and the required environment variabled to Cloudflare workers.
+
+### Deploy from this repository
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/blob/main/Actions%20V2%20%2B%20Cloudflare%20Workers/scripts/jit-users-migration.js)
 
 ## Notes
 
 - Ensure that the environment variables are correctly set before running the server.
 - The script assumes that the legacy database contains user details in the format specified in the `LEGACY_DB` object in `server.js`.
-
-
-## Deploy from this repository
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/blob/main/Actions%20V2%20%2B%20Cloudflare%20Workers/scripts/jit-users-migration.js)

@@ -56,11 +56,15 @@ Open your **Zitadel Console** and navigate to the **Actions** tab.
 
 ---
 
-### Usage
+## Deployment
 
-Check the [README](deployment-utility/README.md) for instructions on how to set this up using Cloudflare Workers, or use the hosting provider of your choice.
+You can deploy this code directly from this repository for quick testing, or you can use the deployment utility.
+
+### Scripted Deployment
+
+Check the deployment utility [README](deployment-utility/README.md) for instructions on how to deploy this code and the required environment variabled to Cloudflare workers.
 
 
-## Deploy from this repository
+### Deploy from this repository
 [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/blob/main/Actions%20V2%20%2B%20Cloudflare%20Workers/scripts/custom-claims.js)
 
