@@ -108,4 +108,4 @@ Check the [README](README.md) for instructions on how to set this up using Cloud
 
 
 ## Deploy from this repository
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/blob/main/Actions%20V2%20%2B%20Cloudflare%20Workers/action-scripts/jit-users-migration.js)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/blob/main/Actions%20V2%20%2B%20Cloudflare%20Workers/scripts/jit-users-migration.js)
