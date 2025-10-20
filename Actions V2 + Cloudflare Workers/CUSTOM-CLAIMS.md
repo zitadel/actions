@@ -66,6 +66,6 @@ Check the deployment utility [README](deployment-utility/README.md) for instruct
 
 
 ### Deploy from this repository
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/Actions V2 + Cloudflare Workers&path=scripts/custom-claims.js)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/Actions%20V2%20%2B%20Cloudflare%20Workers&path=scripts/custom-claims.js)
 
 
