@@ -24,7 +24,7 @@ With this utility, you can:
 
 You can use this deployment utility to publish examples like:
 
-- `lazy-user-migration.js` — automatically migrate legacy users from an external database during login.  
+- `jit-users-migration.js` — automatically migrate legacy users from an external database during login.  
 - `datadog-forwarder.js` — forward Zitadel webhook events to Datadog for observability.  
 - `custom-claims.js` — add custom claims to your access token.
 
