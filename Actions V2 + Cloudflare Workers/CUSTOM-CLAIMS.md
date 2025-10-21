@@ -62,10 +62,13 @@ You can deploy this code directly from this repository for quick testing, or you
 
 ### Scripted Deployment
 
-Check the deployment utility [README](deployment-utility/README.md) for instructions on how to deploy this code and the required environment variabled to Cloudflare workers.
+Check the deployment utility [README](deployment-utility/README.md) for instructions on how to deploy this code and the required environment variables to Cloudflare workers.
 
 
 ### Deploy from this repository
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/Actions%20V2%20%2B%20Cloudflare%20Workers&path=scripts/custom-claims.js)
+
+You will have to manually add the secrets when the deployment is completed.
+
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/Actions%20V2%20%2B%20Cloudflare%20Workers/scripts/custom-claims/custom-claims.js)
 
 

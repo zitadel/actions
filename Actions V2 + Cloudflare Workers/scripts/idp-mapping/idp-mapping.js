@@ -1,7 +1,3 @@
-//NOTE: before deploying this code, you may need to adjust the mapping logic, this is just 
-//an example. Replace the IDP_IDs placeholders with the actual IDP ID you are trying to map
-//This may not be production ready.
-
 export default {
   async fetch(req, env) {
     // --- Path validation ---

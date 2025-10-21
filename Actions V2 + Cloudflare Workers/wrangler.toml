@@ -1,7 +1,0 @@
-# wrangler.toml
-name = "zitadel-action"
-main = "./scripts/custom-claims.js" # default file (overridden by button)
-compatibility_date = "2025-09-15"
-workers_dev = true
-[observability.logs]
-enabled = true

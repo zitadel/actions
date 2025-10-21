@@ -1,9 +1,3 @@
-//This cloudflare worker code example demonstrates how to forward a request from a Zitadel action
-//to a service like datadog to stream logs and events
-//Zitadel sends a webhook request to this worker endpoint, validates the signature using SIGNING_KEY, and the payload is forwarded
-//to Datadog using the DD_API_KEY
-//Needed env variables: DD_API_KEY, DD_URL, SIGNING_KEY
-
 export default {
     async fetch(req, env) {
         const url = new URL(req.url);
