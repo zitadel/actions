@@ -68,7 +68,7 @@ npm install
 
 ### 2 - Update the wrangler.toml file with your worker data
 
-The `wrangler.toml` file defines your Worker’s configuration (name, script to deploy and account ID). Update it with your own project details before deploying:
+The `wrangler.toml` file in this directory defines your Worker’s configuration (name, script to deploy and account ID). Update it with your own project details before deploying:
 
 ```bash
 name = "<WORKER_NAME>"
@@ -90,7 +90,7 @@ npm start
 ```
 ---
 
-### Troubleshooting
+## Troubleshooting
 The `wrangler.toml` file used to upload the enables observability, which makes it easier to troubleshoot issues with the code. 
 
 To view the worker logs:
@@ -103,7 +103,7 @@ To view/update the worker secrets:
 
 ---
 
-### Notes
+## Notes
 - You can add more secrets by editing the `secrets` array in `deploy.js`.
 - The script automatically sets the `CLOUDFLARE_API_TOKEN` from your `.env` file.
 - Designed to integrate seamlessly with Zitadel Actions V2 for secure, automated deployments.
