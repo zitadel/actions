@@ -11,9 +11,9 @@ Each script demonstrates how to handle Zitadel events, signatures, and responses
 
 ## Repository Structure
 
-- **[`scripts/`](/Actions%20V2%20+%20Cloudflare%20Workers/scripts/)** — Contains ready-to-use Cloudflare Worker sample scripts.  
-- **[`deployment-utility/`](/Actions%20V2%20+%20Cloudflare%20Workers/deployment-utility/)** — A Node.js utility that deploys scripts programmatically using the `wrangler` CLI, making it easier to update code and inject secrets.  
-- **[`SCRIPT-NAME.md`](/Actions%20V2%20+%20Cloudflare%20Workers/CUSTOM-CLAIMS.md)** — Each sample Action has its own setup guide.
+- **[`scripts/`](/actions-v2-cloudflare-workers/scripts/)** — Contains ready-to-use Cloudflare Worker sample scripts.  
+- **[`deployment-utility/`](/actions-v2-cloudflare-workers/deployment-utility/)** — A Node.js utility that deploys scripts programmatically using the `wrangler` CLI, making it easier to update code and inject secrets.  
+- **[`SCRIPT-NAME.md`](/actions-v2-cloudflare-workers/CUSTOM-CLAIMS.md)** — Each sample Action has its own setup guide.
 
 ---
 
@@ -23,4 +23,4 @@ Each sample script is designed to run seamlessly on Cloudflare Workers, but the 
 
 To deploy a script, you can use the deployment utility or deploy directly from this repository using the **Deploy to Cloudflare** button at the bottom of each sample guide.
 
-For example: [Custom Claim Injection](/Actions%20V2%20+%20Cloudflare%20Workers/CUSTOM-CLAIMS.md)
+For example: [Custom Claim Injection](/actions-v2-cloudflare-workers/CUSTOM-CLAIMS.md)

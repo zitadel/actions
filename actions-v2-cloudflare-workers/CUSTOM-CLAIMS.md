@@ -4,7 +4,7 @@
 
 # Custom Claim Injection
 
-The [`custom-claims.js`](/Actions%20V2%20+%20Cloudflare%20Workers/scripts/custom-claims/custom-claims.js) Action script demonstrates how to add a custom claim to the access token. This example sets a static value, but it can be easily adapted to match another use case.
+The [`custom-claims.js`](/actions-v2-cloudflare-workers/scripts/custom-claims/custom-claims.js) Action script demonstrates how to add a custom claim to the access token. This example sets a static value, but it can be easily adapted to match another use case.
 
 ## What It Does
 
