@@ -2,9 +2,9 @@
     <img src="https://raw.githubusercontent.com/zitadel/zitadel/refs/heads/main/docs/static/logos/zitadel-logo-dark%402x.png" alt="Zitadel Logo" max-height="200px" width="auto" />
 </p>
 
-# Datadog events forwarder
+# Custom Claim Injection
 
-The [`datadog-forwarder.js`](/Actions%20V2%20+%20Cloudflare%20Workers/scripts/datadog-forwarder/datadog-forwarder.js) Action script demonstrates how forward events from your Zitadel instance to Datadog - This example code can be easily modified for any other provider, for example Splunk.
+The [`custom-claims.js`](/Actions%20V2%20+%20Cloudflare%20Workers/scripts/custom-claims/custom-claims.js) Action script demonstrates how to add a custom claim to the access token. This example sets a static value, but it can be easily adapted to match another use case.
 
 ## What It Does
 
@@ -12,17 +12,16 @@ The [`datadog-forwarder.js`](/Actions%20V2%20+%20Cloudflare%20Workers/scripts/da
 2. **Checks** that `SIGNING_KEY` is configured
 3. **Verifies** the HMAC signature from the `zitadel-signature` header
 4. **Parses** the request body
-5. **Forwards** a JSON object with the event data to the specified endpoint.
+5. **Returns** a JSON object with appended claims
 
 ---
 
 ## Environment Variables
 
-Ensure the following environment variables are set:
+Ensure the following environment variable is set:
 
 - `SIGNING_KEY`: The signing key provided by Zitadel when the target is created.
-- `DD_URL`: The Datadog URL (for example: `https://http-intake.logs.datadoghq.com` for the US-site)
-- `DD_API_KEY`: The Datadog API key
+
 ---
 
 ## Create the Target
@@ -31,8 +30,8 @@ To create a target, use the “CreateTarget” request from our [Postman collect
 
 ```json
 {
-   "name": "Events forwarder Webhook",
-   "restAsync": {
+   "name": "CustomClaims Webhook",
+   "restCall": {
        "interruptOnError": false
    },
    "endpoint": "https://<HOSTING_DOMAIN>",
@@ -56,8 +55,8 @@ The response will look like this:
 ## Create the Action
 
 Open your **Zitadel Console** and navigate to the **Actions** tab.  
-   - Create a new Action for the Events forwarder Webhook → **Events**
-   - Select **All**
+   - Create a new function → **preaccesstoken**
+   - Select the **Custom Claims** target
 
 ---
 
@@ -74,7 +73,7 @@ Check the deployment utility [README](deployment-utility/README.md) for instruct
 
 You will have to manually add the secrets when the deployment is completed.
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/ActionsV2CloudflareWorkers/scripts/datadog-forwarder)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/actions-v2-cloudflare-workers/scripts/custom-claims)
 
 ---
 

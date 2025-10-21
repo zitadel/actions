@@ -2,9 +2,9 @@
     <img src="https://raw.githubusercontent.com/zitadel/zitadel/refs/heads/main/docs/static/logos/zitadel-logo-dark%402x.png" alt="Zitadel Logo" max-height="200px" width="auto" />
 </p>
 
-# IDP Attributes Mapping
+# Datadog events forwarder
 
-The [`idp-mapping.js`](/Actions%20V2%20+%20Cloudflare%20Workers/scripts/idp-mapping/idp-mapping.js) Action script demonstrates how to map attributes from an external identity provider into a user profile. The mapping is done based on the IDP ID, that can be obtained from the Zitadel console. This example demonstrates how to map attributes from 2 IDPs (SAML and OIDC).
+The [`datadog-forwarder.js`](/Actions%20V2%20+%20Cloudflare%20Workers/scripts/datadog-forwarder/datadog-forwarder.js) Action script demonstrates how forward events from your Zitadel instance to Datadog - This example code can be easily modified for any other provider, for example Splunk.
 
 ## What It Does
 
@@ -12,7 +12,7 @@ The [`idp-mapping.js`](/Actions%20V2%20+%20Cloudflare%20Workers/scripts/idp-mapp
 2. **Checks** that `SIGNING_KEY` is configured
 3. **Verifies** the HMAC signature from the `zitadel-signature` header
 4. **Parses** the request body
-5. **Returns** a JSON object with the mapped attributes
+5. **Forwards** a JSON object with the event data to the specified endpoint.
 
 ---
 
@@ -21,8 +21,8 @@ The [`idp-mapping.js`](/Actions%20V2%20+%20Cloudflare%20Workers/scripts/idp-mapp
 Ensure the following environment variables are set:
 
 - `SIGNING_KEY`: The signing key provided by Zitadel when the target is created.
-- `IDP_ID_1`: The SAML IDP ID
-- `IDP_ID_2`: The OIDC IDP ID
+- `DD_URL`: The Datadog URL (for example: `https://http-intake.logs.datadoghq.com` for the US-site)
+- `DD_API_KEY`: The Datadog API key
 ---
 
 ## Create the Target
@@ -31,8 +31,8 @@ To create a target, use the “CreateTarget” request from our [Postman collect
 
 ```json
 {
-   "name": "IDP Mapping Webhook",
-   "restCall": {
+   "name": "Events forwarder Webhook",
+   "restAsync": {
        "interruptOnError": false
    },
    "endpoint": "https://<HOSTING_DOMAIN>",
@@ -56,8 +56,8 @@ The response will look like this:
 ## Create the Action
 
 Open your **Zitadel Console** and navigate to the **Actions** tab.  
-   - Create a new Action for the IDP Mapping webhook → **Response**
-   - Select the Method **/zitadel.user.v2.UserService/RetrieveIdentityProviderIntent**
+   - Create a new Action for the Events forwarder Webhook → **Events**
+   - Select **All**
 
 ---
 
@@ -74,7 +74,7 @@ Check the deployment utility [README](deployment-utility/README.md) for instruct
 
 You will have to manually add the secrets when the deployment is completed.
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/ActionsV2CloudflareWorkers/scripts/idp-mapping)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/actions-v2-cloudflare-workers/scripts/datadog-forwarder)
 
 ---
 
