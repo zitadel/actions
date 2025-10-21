@@ -1,3 +1,7 @@
+<p align="center">
+    <img src="https://raw.githubusercontent.com/zitadel/zitadel/refs/heads/main/docs/static/logos/zitadel-logo-dark%402x.png" alt="Zitadel Logo" max-height="200px" width="auto" />
+</p>
+
 # Custom Claim Injection
 
 The `custom-claims.js` Action script demonstrates how to add a custom claim to the access token. This example sets a static value, but it can be easily adapted to match another use case.

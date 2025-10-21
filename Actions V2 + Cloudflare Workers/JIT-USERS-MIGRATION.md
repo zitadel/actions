@@ -1,3 +1,7 @@
+<p align="center">
+    <img src="https://raw.githubusercontent.com/zitadel/zitadel/refs/heads/main/docs/static/logos/zitadel-logo-dark%402x.png" alt="Zitadel Logo" max-height="200px" width="auto" />
+</p>
+
 # Trickle Migration Script
 
 The `jit-users-migration.js` Action script provides the logic for migrating legacy users into Zitadel using Just-In-Time provisioning. The script includes endpoints for handling user listing and session management, ensuring a smooth migration process.
