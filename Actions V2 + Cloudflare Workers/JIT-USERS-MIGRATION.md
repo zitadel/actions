@@ -1,6 +1,10 @@
+<p align="center">
+    <img src="https://raw.githubusercontent.com/zitadel/zitadel/refs/heads/main/docs/static/logos/zitadel-logo-dark%402x.png" alt="Zitadel Logo" max-height="200px" width="auto" />
+</p>
+
 # Trickle Migration Script
 
-The `jit-users-migration.js` Action script provides the logic for migrating legacy users into Zitadel using Just-In-Time provisioning. The script includes endpoints for handling user listing and session management, ensuring a smooth migration process.
+The [`jit-users-migration.js`](/Actions%20V2%20+%20Cloudflare%20Workers/scripts/jit-users-migration/jit-users-migration.js) Action script provides the logic for migrating legacy users into Zitadel using Just-In-Time provisioning. The script includes endpoints for handling user listing and session management, ensuring a smooth migration process.
 
 ## Script Endpoints
 
@@ -109,7 +113,22 @@ Check the deployment utility [README](deployment-utility/README.md) for instruct
 
 You will have to manually add the secrets when the deployment is completed.
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/Actions%20V2%20%2B%20Cloudflare%20Workers/scripts/jit-users-migration/jit-users-migration.js)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/Actions%20V2%20%2B%20Cloudflare%20Workers/scripts/jit-users-migration)
+
+---
+
+## Troubleshooting
+The `wrangler.toml` file used to upload the enables observability, which makes it easier to troubleshoot issues with the code. 
+
+To view the worker logs:
+- 1. Open the worker view
+- 2. Go to `Observability`
+
+To view/update the worker secrets:
+- 1. Open the worker view
+- 2. Go to `Settings` → `Variables and Secrets`
+
+---
 
 ## Notes
 
