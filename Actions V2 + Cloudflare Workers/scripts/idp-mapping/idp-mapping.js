@@ -102,7 +102,7 @@ function mapIdpAttributes(receivedObject) {
   const idpAttributes = idpInfo.rawInformation;
   const idpId = idpInfo.idpId;
 
-  if (idpId === "<IDP_ID_1>" && receivedObject.addHumanUser) {
+  if (idpId === env.IDP_ID_1 && receivedObject.addHumanUser) {
     const attrs = idpAttributes.attributes;
     receivedObject.addHumanUser.email = {
       isVerified: true,
@@ -119,7 +119,7 @@ function mapIdpAttributes(receivedObject) {
     console.log("[Mapping] Attributes mapped for SAML provider");
   }
 
-  else if (idpId === "<IDP_ID_2>" && receivedObject.addHumanUser) {
+  else if (idpId === env.IDP_ID_2 && receivedObject.addHumanUser) {
     receivedObject.addHumanUser.email = {
       isVerified: idpAttributes.email_verified,
       email: idpAttributes.email,

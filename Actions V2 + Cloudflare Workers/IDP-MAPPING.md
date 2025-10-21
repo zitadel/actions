@@ -2,9 +2,9 @@
     <img src="https://raw.githubusercontent.com/zitadel/zitadel/refs/heads/main/docs/static/logos/zitadel-logo-dark%402x.png" alt="Zitadel Logo" max-height="200px" width="auto" />
 </p>
 
-# Custom Claim Injection
+# IDP Attributes Mapping
 
-The [`custom-claims.js`](/Actions%20V2%20+%20Cloudflare%20Workers/scripts/custom-claims/custom-claims.js) Action script demonstrates how to add a custom claim to the access token. This example sets a static value, but it can be easily adapted to match another use case.
+The [`idp-mapping.js`](/Actions%20V2%20+%20Cloudflare%20Workers/scripts/idp-mapping/idp-mapping.js) Action script demonstrates how to map attributes from an external identity provider into a user profile. The mapping is done based on the IDP ID, that can be obtained from the Zitadel console. This example demonstrates how to map attributes from 2 IDPs (SAML and OIDC).
 
 ## What It Does
 
@@ -12,16 +12,17 @@ The [`custom-claims.js`](/Actions%20V2%20+%20Cloudflare%20Workers/scripts/custom
 2. **Checks** that `SIGNING_KEY` is configured
 3. **Verifies** the HMAC signature from the `zitadel-signature` header
 4. **Parses** the request body
-5. **Returns** a JSON object with appended claims
+5. **Returns** a JSON object with the mapped attributes
 
 ---
 
 ## Environment Variables
 
-Ensure the following environment variable is set:
+Ensure the following environment variables are set:
 
 - `SIGNING_KEY`: The signing key provided by Zitadel when the target is created.
-
+- `IDP_ID_1`: The SAML IDP ID
+- `IDP_ID_2`: The OIDC IDP ID
 ---
 
 ## Create the Target
@@ -30,7 +31,7 @@ To create a target, use the “CreateTarget” request from our [Postman collect
 
 ```json
 {
-   "name": "CustomClaims Webhook",
+   "name": "IDP Mapping Webhook",
    "restCall": {
        "interruptOnError": false
    },
@@ -55,8 +56,8 @@ The response will look like this:
 ## Create the Action
 
 Open your **Zitadel Console** and navigate to the **Actions** tab.  
-   - Create a new function → **preaccesstoken**
-   - Select the **Custom Claims** target
+   - Create a new Action for the IDP Mapping webhook → **Response**
+   - Select the Method **/zitadel.user.v2.UserService/RetrieveIdentityProviderIntent**
 
 ---
 
@@ -73,7 +74,7 @@ Check the deployment utility [README](deployment-utility/README.md) for instruct
 
 You will have to manually add the secrets when the deployment is completed.
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/Actions%20V2%20%2B%20Cloudflare%20Workers/scripts/custom-claims)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/Actions%20V2%20%2B%20Cloudflare%20Workers/scripts/idp-mapping)
 
 ---
 
