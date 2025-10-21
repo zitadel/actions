@@ -13,7 +13,7 @@ Each script demonstrates how to handle Zitadel events, signatures, and responses
 
 - **[`scripts/`](/Actions%20V2%20+%20Cloudflare%20Workers/scripts/)** — Contains ready-to-use Cloudflare Worker sample scripts.  
 - **[`deployment-utility/`](/Actions%20V2%20+%20Cloudflare%20Workers/deployment-utility/)** — A Node.js utility that deploys scripts programmatically using the `wrangler` CLI, making it easier to update code and inject secrets.  
-- **[SCRIPT-NAME.md](/Actions%20V2%20+%20Cloudflare%20Workers/CUSTOM-CLAIMS.md)** — Each sample Action has its own setup guide.
+- **[`SCRIPT-NAME.md`](/Actions%20V2%20+%20Cloudflare%20Workers/CUSTOM-CLAIMS.md)** — Each sample Action has its own setup guide.
 
 ---
 
