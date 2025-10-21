@@ -74,7 +74,7 @@ Check the deployment utility [README](deployment-utility/README.md) for instruct
 
 You will have to manually add the secrets when the deployment is completed.
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/Actions%20V2%20%2B%20Cloudflare%20Workers/scripts/datadog-forwarder)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/ActionsV2CloudflareWorkers/scripts/datadog-forwarder)
 
 ---
 
