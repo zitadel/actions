@@ -37,8 +37,8 @@ Each script in `/scripts` is a ready-to-deploy Cloudflare Worker entrypoint — 
 ## Requirements
 
 - Node.js
-- **Cloudflare account** with access to Workers
-- Cloudflare **API Token** (with “Edit Cloudflare Workers” permission)
+- [**Cloudflare account**](https://www.cloudflare.com/) with access to Workers
+- Cloudflare [**API Token**](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/) (with “Edit Cloudflare Workers” permission)
 
 ---
 
@@ -72,7 +72,7 @@ The `wrangler.toml` file defines your Worker’s configuration (name, script to 
 
 ```bash
 name = "<WORKER_NAME>"
-main = "../scripts/<SCRIPT_TO_DEPLOY>.js"
+main = "../scripts/<SCRIPT_FOLDER>/<SCRIPT_TO_DEPLOY>.js"
 compatibility_date = "2023-10-01"
 account_id = "<CLOUDFLARE_ACCOUNT_ID>"
 workers_dev = true
@@ -81,11 +81,28 @@ enabled = true
 ```
 You can switch the script path (main) to any example file in `/scripts`.
 
-### 3 - Run the deploy node script
+### 3 - Include the secrets
+Add to the `.env` file the secrets required by the worker, and add those secrets names to the `secrets` array in `deploy.js`
+
+### 4 - Run the deploy node script
 ```bash
 npm start
 ```
 ---
+
+### Troubleshooting
+The `wrangler.toml` file used to upload the enables observability, which makes it easier to troubleshoot issues with the code. 
+
+To view the worker logs:
+- 1. Open the worker view
+- 2. Go to `Observability`
+
+To view/update the worker secrets:
+- 1. Open the worker view
+- 2. Go to `Settings` -> `Variables and Secrets`
+
+---
+
 ### Notes
 - You can add more secrets by editing the `secrets` array in `deploy.js`.
 - The script automatically sets the `CLOUDFLARE_API_TOKEN` from your `.env` file.

@@ -1,0 +1,6 @@
+name = "claims"
+main = "./custom-claims.js"
+compatibility_date = "2025-09-15"
+workers_dev = true
+[observability.logs]
+enabled = true
