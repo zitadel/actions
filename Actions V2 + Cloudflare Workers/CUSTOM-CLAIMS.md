@@ -86,6 +86,6 @@ To view the worker logs:
 
 To view/update the worker secrets:
 - 1. Open the worker view
-- 2. Go to `Settings` -> `Variables and Secrets`
+- 2. Go to `Settings` → `Variables and Secrets`
 
 
