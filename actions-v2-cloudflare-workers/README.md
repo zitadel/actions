@@ -23,4 +23,4 @@ Each sample script is designed to run seamlessly on Cloudflare Workers, but the 
 
 To deploy a script, you can use the deployment utility or deploy directly from this repository using the **Deploy to Cloudflare** button at the bottom of each sample guide.
 
-Create a [**Cloudflare account**](https://www.cloudflare.com/) to deploy your first Action, for example: [Custom Claim Injection](/actions-v2-cloudflare-workers/CUSTOM-CLAIMS.md)
+Create a [**Cloudflare account**](https://www.cloudflare.com/), and follow the steps to deploy your first Action, for example: [Custom Claim Injection](/actions-v2-cloudflare-workers/CUSTOM-CLAIMS.md)
