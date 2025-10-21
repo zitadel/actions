@@ -2,7 +2,7 @@
 
 The `custom-claims.js` Action script demonstrates how to add a custom claim to the access token. This example sets a static value, but it can be easily adapted to match another use case.
 
-### What It Does
+## What It Does
 
 1. **Validates** request path and method (`POST /`)
 2. **Checks** that `SIGNING_KEY` is configured
@@ -12,7 +12,7 @@ The `custom-claims.js` Action script demonstrates how to add a custom claim to t
 
 ---
 
-### Environment Variables
+## Environment Variables
 
 Ensure the following environment variable is set:
 
@@ -69,6 +69,6 @@ Check the deployment utility [README](deployment-utility/README.md) for instruct
 
 You will have to manually add the secrets when the deployment is completed.
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/Actions%20V2%20%2B%20Cloudflare%20Workers/scripts/custom-claims/custom-claims.js)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/Actions%20V2%20%2B%20Cloudflare%20Workers/scripts/custom-claims)
 
 
