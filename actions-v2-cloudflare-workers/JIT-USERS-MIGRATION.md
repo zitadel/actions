@@ -101,6 +101,21 @@ Copy the signing key returned, this must be saved as the `SETSESSION_SIGNING_KEY
 
 The legacy database is mocked in this project. Replace the `LEGACY_DB` object in `server.js` with actual calls to your legacy database.
 
+You can test the migration flow using this mocked profile:
+
+```json
+"legacy-user": {
+   userId: "db-163840776835432346",
+   username: "legacy-user",
+   givenName: "Legacy",
+   familyName: "User",
+   displayName: "Legacy User",
+   preferredLanguage: "en",
+   email: "legacy-user@gmail.com",
+   password: "Password1!",
+}
+```
+
 ## Deployment
 
 You can deploy this code directly from this repository for quick testing, or you can use the deployment utility.
