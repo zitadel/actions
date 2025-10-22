@@ -43,7 +43,7 @@ export default {
     console.log("[Input] Received object:", JSON.stringify(receivedObject));
 
     // --- Map IDP attributes if applicable ---
-    mapIdpAttributes(receivedObject);
+    mapIdpAttributes(receivedObject, env.IDP_ID_1, env.IDP_ID_2);
 
     console.log("[Output] Returned object:", JSON.stringify(receivedObject));
 
@@ -95,14 +95,14 @@ async function verifySignature(signatureHeader, rawBody, signingKey) {
 /**
  * Map IDP attributes based on provider ID
  */
-function mapIdpAttributes(receivedObject) {
+function mapIdpAttributes(receivedObject, IDP_ID_1, IDP_ID_2) {
   const idpInfo = receivedObject.idpInformation;
   if (!idpInfo || !idpInfo.rawInformation) return;
 
   const idpAttributes = idpInfo.rawInformation;
   const idpId = idpInfo.idpId;
 
-  if (idpId === env.IDP_ID_1 && receivedObject.addHumanUser) {
+  if (idpId === IDP_ID_1 && receivedObject.addHumanUser) {
     const attrs = idpAttributes.attributes;
     receivedObject.addHumanUser.email = {
       isVerified: true,
@@ -119,7 +119,7 @@ function mapIdpAttributes(receivedObject) {
     console.log("[Mapping] Attributes mapped for SAML provider");
   }
 
-  else if (idpId === env.IDP_ID_2 && receivedObject.addHumanUser) {
+  else if (idpId === IDP_ID_2 && receivedObject.addHumanUser) {
     receivedObject.addHumanUser.email = {
       isVerified: idpAttributes.email_verified,
       email: idpAttributes.email,
