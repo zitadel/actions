@@ -4,7 +4,7 @@
 
 # IDP Attributes Mapping
 
-The [`idp-mapping.js`](/Actions%20V2%20+%20Cloudflare%20Workers/scripts/idp-mapping/idp-mapping.js) Action script demonstrates how to map attributes from an external identity provider into a user profile. The mapping is done based on the IDP ID, that can be obtained from the Zitadel console. This example demonstrates how to map attributes from 2 IDPs (SAML and OIDC).
+The [`idp-mapping.js`](/actions-v2-cloudflare-workers/scripts/idp-mapping/idp-mapping.js) Action script demonstrates how to map attributes from an external identity provider into a user profile. The mapping is done based on the IDP ID, that can be obtained from the Zitadel console. This example demonstrates how to map attributes from 2 IDPs (SAML and OIDC).
 
 ## What It Does
 
@@ -74,7 +74,7 @@ Check the deployment utility [README](deployment-utility/README.md) for instruct
 
 You will have to manually add the secrets when the deployment is completed.
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/Actions%20V2%20%2B%20Cloudflare%20Workers/scripts/idp-mapping)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/actions-v2-cloudflare-workers/scripts/idp-mapping)
 
 ---
 

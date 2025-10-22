@@ -4,7 +4,7 @@
 
 # Datadog events forwarder
 
-The [`datadog-forwarder.js`](/Actions%20V2%20+%20Cloudflare%20Workers/scripts/datadog-forwarder/datadog-forwarder.js) Action script demonstrates how forward events from your Zitadel instance to Datadog - This example code can be easily modified for any other provider, for example Splunk.
+The [`datadog-forwarder.js`](/actions-v2-cloudflare-workers/scripts/datadog-forwarder/datadog-forwarder.js) Action script demonstrates how forward events from your Zitadel instance to Datadog - This example code can be easily modified for any other provider, for example Splunk.
 
 ## What It Does
 
@@ -74,7 +74,7 @@ Check the deployment utility [README](deployment-utility/README.md) for instruct
 
 You will have to manually add the secrets when the deployment is completed.
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/Actions%20V2%20%2B%20Cloudflare%20Workers/scripts/datadog-forwarder)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/actions-v2-cloudflare-workers/scripts/datadog-forwarder)
 
 ---
 
