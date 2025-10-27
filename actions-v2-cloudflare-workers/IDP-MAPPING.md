@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/zitadel/zitadel/refs/heads/main/docs/static/logos/zitadel-logo-dark%402x.png" alt="Zitadel Logo" max-height="200px" width="auto" />
+    <img src="./assets/logo.png" alt="Zitadel Logo" max-height="200px" width="auto" />
 </p>
 
 # IDP Attributes Mapping
@@ -72,20 +72,20 @@ Check the deployment utility [README](deployment-utility/README.md) for instruct
 
 ### Deploy from this repository
 
-You will have to manually add the secrets when the deployment is completed.
+You will need to manually add the secrets once deployment is complete.
 
 [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/actions-v2-cloudflare-workers/scripts/idp-mapping)
 
 ---
 
 ## Troubleshooting
-The `wrangler.toml` file used to upload the enables observability, which makes it easier to troubleshoot issues with the code. 
+The `wrangler.toml` file used to upload the worker enables observability, which makes it easier to troubleshoot issues with the code. 
 
 To view the worker logs:
 - 1. Open the worker view
 - 2. Go to `Observability`
 
-To view/update the worker secrets:
+To view or update the worker secrets:
 - 1. Open the worker view
 - 2. Go to `Settings` → `Variables and Secrets`
 

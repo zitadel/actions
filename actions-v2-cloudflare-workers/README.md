@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/zitadel/zitadel/refs/heads/main/docs/static/logos/zitadel-logo-dark%402x.png" alt="Zitadel Logo" max-height="200px" width="auto" />
+    <img src="./assets/logo.png" alt="Zitadel Logo" max-height="200px" width="auto" />
 </p>
 
 # **Zitadel Actions V2 Examples**

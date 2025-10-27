@@ -2,9 +2,12 @@
     <img src="./assets/logo.png" alt="Zitadel Logo" max-height="200px" width="auto" />
 </p>
 
-# Custom Claim Injection
+# Block Login
 
-The [`custom-claims.js`](/actions-v2-cloudflare-workers/scripts/custom-claims/custom-claims.js) Action script demonstrates how to add a custom claim to the access token. This example sets a static value, but it can be easily adapted to match another use case.
+The [`block-login.js`](/actions-v2-cloudflare-workers/scripts/block-login/block-login.js) Action script demonstrates how to block the login flow based on certain conditions. This example prevents issuing a token to the user if the metadata object contains contains a `blocked` key with a value of `true`
+
+# 🚨 Warning:  
+## <p style="color: red;">This Action can lock you out of your Instance, test it in your development environment first.</p>
 
 ## What It Does
 
@@ -12,7 +15,7 @@ The [`custom-claims.js`](/actions-v2-cloudflare-workers/scripts/custom-claims/cu
 2. **Checks** that `SIGNING_KEY` is configured
 3. **Verifies** the HMAC signature from the `zitadel-signature` header
 4. **Parses** the request body
-5. **Returns** a JSON object with appended claims
+5. **Returns** a JSON object with an error message that will be forwarded to the user
 
 ---
 
@@ -30,9 +33,9 @@ To create a target, use the “CreateTarget” request from our [Postman collect
 
 ```json
 {
-   "name": "CustomClaims Webhook",
+   "name": "Block Login Webhook",
    "restCall": {
-       "interruptOnError": false
+       "interruptOnError": true
    },
    "endpoint": "https://<HOSTING_DOMAIN>",
    "timeout": "10s"
@@ -55,8 +58,8 @@ The response will look like this:
 ## Create the Action
 
 Open your **Zitadel Console** and navigate to the **Actions** tab.  
-   - Create a new function → **preaccesstoken**
-   - Select the **Custom Claims** target
+   - Create a new function → **preuserinfo**
+   - Select the **Block Login** target
 
 ---
 
@@ -73,7 +76,7 @@ Check the deployment utility [README](deployment-utility/README.md) for instruct
 
 You will need to manually add the secrets once deployment is complete.
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/actions-v2-cloudflare-workers/scripts/custom-claims)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/actions-v2-cloudflare-workers/scripts/block-login)
 
 ---
 
