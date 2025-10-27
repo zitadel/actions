@@ -4,10 +4,10 @@
 
 # Block Login
 
-The [`block-login.js`](/actions-v2-cloudflare-workers/scripts/block-login/block-login.js) Action script demonstrates how to block the login flow based on certain conditions. This example prevents issuing a token to the user if the metadata object contains contains a `blocked` key with a value of `true`
+The [`block-login.js`](/actions-v2-cloudflare-workers/scripts/block-login/block-login.js) Action script demonstrates how to block the login flow based on certain conditions. This example prevents issuing a token to the user if the metadata object contains a `blocked` key with a value of `true`
 
 # 🚨 Warning:  
-## <p style="color: red;">This Action can lock you out of your Instance, test it in your development environment first.</p>
+## This Action can lock you out of your Instance, test it in your development environment first.
 
 ## What It Does
 
