@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/zitadel/zitadel/refs/heads/main/docs/static/logos/zitadel-logo-dark%402x.png" alt="Zitadel Logo" max-height="200px" width="auto" />
+    <img src="../assets/logo.png" alt="Zitadel Logo" max-height="200px" width="auto" />
 </p>
 
 # Cloudflare Worker Deployment Utility for **Zitadel Actions V2 Examples**
@@ -91,13 +91,13 @@ npm start
 ---
 
 ## Troubleshooting
-The `wrangler.toml` file used to upload the enables observability, which makes it easier to troubleshoot issues with the code. 
+The `wrangler.toml` file used to upload the worker enables observability, which makes it easier to troubleshoot issues with the code. 
 
 To view the worker logs:
 - 1. Open the worker view
 - 2. Go to `Observability`
 
-To view/update the worker secrets:
+To view or update the worker secrets:
 - 1. Open the worker view
 - 2. Go to `Settings` → `Variables and Secrets`
 
