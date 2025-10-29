@@ -62,18 +62,7 @@ Open your **Zitadel Console** and navigate to the **Actions** tab.
 
 ## Deployment
 
-You can deploy this code directly from this repository for quick testing, or you can use the deployment utility.
-
-### Scripted Deployment
-
-Check the deployment utility [README](deployment-utility/README.md) for instructions on how to deploy this code and the required environment variables to Cloudflare workers.
-
-
-### Deploy from this repository
-
-You will need to manually add the secrets once deployment is complete.
-
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zitadel/actions/tree/main/actions-v2-cloudflare-workers/scripts/set-user-metadata)
+Check the [`deployment utility`](deployment-utility/README.md) for instructions on how to deploy this code and the required environment variables to Cloudflare workers.
 
 ---
 

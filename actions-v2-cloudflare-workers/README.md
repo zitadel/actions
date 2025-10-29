@@ -19,8 +19,8 @@ Each script demonstrates how to handle Zitadel events, signatures, and responses
 
 ## Running the Code
 
-Each sample script is designed to run seamlessly on Cloudflare Workers, but the code can be adapted to deploy on the platform of your choice.
+Each JavaScript sample script is designed to run seamlessly on Cloudflare Workers, but the code can be adapted to deploy on the platform of your choice.
 
-To deploy a script, you can use the deployment utility or deploy directly from this repository using the **Deploy to Cloudflare** button at the bottom of each sample guide.
+To deploy a script, you can download this repository and run the [`deployment utility`](/actions-v2-cloudflare-workers/deployment-utility/README.md), which simplifies running each example and automatically uploads the environment **variables** needed by each script. 
 
-Create a [**Cloudflare account**](https://www.cloudflare.com/), and follow the steps to deploy your first Action, for example: [Custom Claim Injection](/actions-v2-cloudflare-workers/CUSTOM-CLAIMS.md)
+Create a [**Cloudflare account**](https://www.cloudflare.com/) and follow the steps to deploy your first Action. For example: [Custom Claim Injection](/actions-v2-cloudflare-workers/CUSTOM-CLAIMS.md)

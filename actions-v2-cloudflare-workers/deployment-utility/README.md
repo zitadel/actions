@@ -4,7 +4,7 @@
 
 # Cloudflare Worker Deployment Utility for **Zitadel Actions V2 Examples**
 
-This repository provides a **Node.js deployment utility** that automates the process of publishing Zitadel Action V2 example scripts (found under the `/scripts` folder) to **Cloudflare Workers**.  
+This repository provides a **Node.js deployment utility** that automates the process of publishing Zitadel Action V2 example scripts (found under the [`/scripts`](/actions-v2-cloudflare-workers/scripts/) folder) to **Cloudflare Workers**.  
 
 It wraps the [`wrangler`](https://developers.cloudflare.com/workers/wrangler/) CLI to handle uploads, environment variable (secret) injection, and version updates — letting you test and iterate on your Zitadel Cloudflare integrations with minimal setup.
 
@@ -30,7 +30,7 @@ You can use this deployment utility to publish examples like:
 - `idp-mappings.js` — map attributes from an external IDP.
 - Etc.
 
-Each script in `/scripts` is a ready-to-deploy Cloudflare Worker entrypoint — you only need to configure the environment variables.
+Each script in [`/scripts`](/actions-v2-cloudflare-workers/scripts/) is a ready-to-deploy Cloudflare Worker entrypoint — you only need to configure the environment variables.
 
 ---
 
@@ -48,14 +48,10 @@ Before running the script, create an `.env` file and add the required variables,
 
 | Variable | Description |
 |-----------|--------------|
-| `CLOUDFLARE_API_TOKEN` | Cloudflare API token (not optional - used by the deploy script) |
-| `SIGNING_KEY` | Secret key to add to Worker env |
-
-
-Update the deploy script to insert the environment variables:
-```bash
-const secrets = ["SIGNING_KEY"];
-```
+| `CF_API_TOKEN` | Cloudflare API token (not optional - used by the deploy script) |
+| `CF_ACCOUNT_ID` | Cloudflare Account ID (not optional - used by the deploy script) |
+| `SECRET_1` | Secret key to add to Worker env |
+| `SECRET_2` | Secret key to add to Worker env |
 
 ---
 
@@ -66,25 +62,10 @@ const secrets = ["SIGNING_KEY"];
 npm install
 ```
 
-### 2 - Update the wrangler.toml file with your worker data
-
-The `wrangler.toml` file in this directory defines your Worker’s configuration (name, script to deploy and account ID). Update it with your own project details before deploying:
-
-```bash
-name = "<WORKER_NAME>"
-main = "../scripts/<SCRIPT_FOLDER>/<SCRIPT_TO_DEPLOY>.js"
-compatibility_date = "2023-10-01"
-account_id = "<CLOUDFLARE_ACCOUNT_ID>"
-workers_dev = true
-[observability.logs]
-enabled = true
-```
-You can switch the script path (main) to any example file in `/scripts`.
-
-### 3 - Include the secrets
+### 2 - Include the secrets
 Add to the `.env` file the secrets required by the worker, and add those secrets names to the `secrets` array in `deploy.js`
 
-### 4 - Run the deploy node script
+### 3 - Run the deploy node script
 ```bash
 npm start
 ```
@@ -105,7 +86,7 @@ To view or update the worker secrets:
 
 ## Notes
 - You can add more secrets by editing the `secrets` array in `deploy.js`.
-- The script automatically sets the `CLOUDFLARE_API_TOKEN` from your `.env` file.
+- The script automatically sets the `CF_API_TOKEN` from your `.env` file.
 - Designed to integrate seamlessly with Zitadel Actions V2 for secure, automated deployments.
 
 
