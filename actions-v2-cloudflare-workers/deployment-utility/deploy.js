@@ -1,3 +1,4 @@
+import inquirer from "inquirer";
 import { execSync } from "child_process";
 import dotenv from "dotenv";
 import path from "path";
@@ -11,19 +12,35 @@ if (!fs.existsSync(envPath)) {
 }
 
 const envConfig = dotenv.config({ path: envPath }).parsed;
+
 if (!envConfig) {
   console.error("ERROR: Failed to parse .env file");
   process.exit(1);
 }
 
-const scriptName = process.argv[2];
-if (!scriptName) {
-  console.error("ERROR: No script folder name provided");
-  console.error("USAGE: npm start <script-folder-name> for example: npm start custom-claims");
+// Get available scripts
+const scriptsDir = path.resolve("../scripts");
+const availableScripts = fs.readdirSync(scriptsDir).filter((f) =>
+  fs.statSync(path.join(scriptsDir, f)).isDirectory()
+);
+
+if (availableScripts.length === 0) {
+  console.error("No scripts found in ../scripts folder");
   process.exit(1);
 }
 
+// Ask the user to select a script
+const { scriptName } = await inquirer.prompt([
+  {
+    type: "list",
+    name: "scriptName",
+    message: "Select the script to deploy:",
+    choices: availableScripts,
+  },
+]);
+
 const scriptPath = path.resolve(`../scripts/${scriptName}`);
+console.log(`Deploying Script from folder: ${scriptPath}`);
 
 // Validate that the script path exists and is a directory
 if (!fs.existsSync(scriptPath) || !fs.lstatSync(scriptPath).isDirectory()) {
