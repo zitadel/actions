@@ -27,7 +27,7 @@ const execOptions = {
   env: { ...process.env },
 };
 
-const scriptPath = path.join("scripts", scriptName);
+const scriptPath = path.join("..", "scripts", scriptName);
 
 if (!fs.existsSync(scriptPath)) {
   console.error(`ERROR: The script folder '${scriptPath}' does not exist.`);
