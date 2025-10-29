@@ -34,7 +34,7 @@ const { scriptName } = await inquirer.prompt([
   {
     type: "list",
     name: "scriptName",
-    message: "Select the script to deploy:",
+    message: "Select the code to deploy:",
     choices: availableScripts,
   },
 ]);

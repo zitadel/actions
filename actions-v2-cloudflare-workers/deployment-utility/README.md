@@ -73,7 +73,7 @@ npm start
 You will see a list of available scripts to deploy.
 
 ```bash
-? Select the script to deploy:
+? Select the code to deploy:
 ❯ block-login
   custom-claims
   datadog-forwarder
