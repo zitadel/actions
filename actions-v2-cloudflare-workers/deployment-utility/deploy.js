@@ -54,8 +54,6 @@ if (!envConfig.CLOUDFLARE_API_TOKEN || !envConfig.CLOUDFLARE_ACCOUNT_ID) {
   process.exit(1);
 }
 
-console.log(`Deploying Script from folder: ${scriptPath}`);
-
 const secretsToUpload = Object.keys(envConfig).filter((k) => !k.startsWith("CLOUDFLARE_"));
 
 const execOptions = {
