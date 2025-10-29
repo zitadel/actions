@@ -48,8 +48,8 @@ Before running the script, create an `.env` file and add the required variables,
 
 | Variable | Description |
 |-----------|--------------|
-| `CF_API_TOKEN` | Cloudflare API token (not optional - used by the deploy script) |
-| `CF_ACCOUNT_ID` | Cloudflare Account ID (not optional - used by the deploy script) |
+| `CLOUDFLARE_API_TOKEN` | Cloudflare API token (not optional - used by the deploy script) |
+| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare Account ID (not optional - used by the deploy script) |
 | `SECRET_1` | Secret key to add to Worker env |
 | `SECRET_2` | Secret key to add to Worker env |
 
@@ -86,7 +86,7 @@ To view or update the worker secrets:
 
 ## Notes
 - You can add more secrets by editing the `secrets` array in `deploy.js`.
-- The script automatically sets the `CF_API_TOKEN` from your `.env` file.
+- The script automatically sets the `CLOUDFLARE_API_TOKEN` from your `.env` file.
 - Designed to integrate seamlessly with Zitadel Actions V2 for secure, automated deployments.
 
 

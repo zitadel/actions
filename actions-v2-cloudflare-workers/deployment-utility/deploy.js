@@ -3,64 +3,63 @@ import dotenv from "dotenv";
 import path from "path";
 import fs from "fs";
 
-dotenv.config();
+// Load .env
+const envPath = path.resolve(".env");
+if (!fs.existsSync(envPath)) {
+  console.error("ERROR: .env file not found");
+  process.exit(1);
+}
+
+const envConfig = dotenv.config({ path: envPath }).parsed;
+if (!envConfig) {
+  console.error("ERROR: Failed to parse .env file");
+  process.exit(1);
+}
 
 const scriptName = process.argv[2];
-
 if (!scriptName) {
   console.error("Usage: npm start <script-name>");
   process.exit(1);
 }
 
-if (!process.env.CF_API_TOKEN) {
-  console.error("ERROR: CF_API_TOKEN is missing in your .env file");
+const scriptPath = path.resolve(`../scripts/${scriptName}`);
+console.log(`🚀 Deploying script from folder: ${scriptPath}`);
+
+// Ensure required Cloudflare variables are present
+if (!envConfig.CLOUDFLARE_API_TOKEN || !envConfig.CLOUDFLARE_ACCOUNT_ID) {
+  console.error("ERROR: CLOUDFLARE_API_TOKEN or CLOUDFLARE_ACCOUNT_ID missing in .env");
   process.exit(1);
 }
 
-if (!process.env.CF_ACCOUNT_ID) {
-  console.error("ERROR: CF_ACCOUNT_ID is missing in your .env file");
-  process.exit(1);
-}
+// Only upload secrets defined in .env that do NOT start with "CLOUDFLARE"
+const secretsToUpload = Object.keys(envConfig).filter((k) => !k.startsWith("CLOUDFLARE"));
 
 const execOptions = {
   stdio: "inherit",
-  env: { ...process.env },
+  cwd: scriptPath, // ensures wrangler.toml in the script folder is used
+  env: {
+    ...process.env,
+    ...envConfig,
+    CLOUDFLARE_ACCOUNT_ID: envConfig.CLOUDFLARE_ACCOUNT_ID,
+  },
 };
 
-const scriptPath = path.join("..", "scripts", scriptName);
-
-if (!fs.existsSync(scriptPath)) {
-  console.error(`ERROR: The script folder '${scriptPath}' does not exist.`);
-  process.exit(1);
-}
-
-console.log(`🚀 Deploying script from folder: ${scriptPath}`);
-
-const secrets = Object.keys(process.env).filter(
-  (key) => !key.startsWith("CF_")
-);
-
-for (const key of secrets) {
+// Upload each secret
+for (const key of secretsToUpload) {
   try {
     console.log(`🔑 Syncing secret: ${key}`);
-    execSync(
-      `echo "${process.env[key]}" | npx wrangler secret put ${key} --name ${scriptName}`,
-      execOptions
-    );
+    execSync(`echo "${envConfig[key]}" | npx wrangler secret put ${key}`, execOptions);
     console.log(`✅ Secret '${key}' synced successfully`);
   } catch (err) {
-    console.error(`❌ ERROR: Failed to sync secret '${key}'`, err.message);
+    console.error(`❌ ERROR: Failed to sync secret ${key}`, err);
   }
 }
 
+// Deploy the worker
 try {
-  console.log("📦 Deploying to Cloudflare Workers...");
-  execSync(
-    `npx wrangler deploy ${path.join(scriptPath, "wrangler.toml")} --name ${scriptName} --account-id ${process.env.CF_ACCOUNT_ID}`,
-    execOptions
-  );
-  console.log("✅ Deployment complete!");
+  console.log("🌀 Deploying to Cloudflare Workers...");
+  execSync("npx wrangler deploy", execOptions);
+  console.log("✨ Deployment complete!");
 } catch (err) {
-  console.error("❌ ERROR: Deployment failed", err.message);
-  process.exit(1);
+  console.error("❌ ERROR: Deployment failed", err);
 }
