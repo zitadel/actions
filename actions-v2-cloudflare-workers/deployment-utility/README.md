@@ -69,6 +69,20 @@ Add to the `.env` file the secrets required by the example that you are deployin
 ```bash
 npm start
 ```
+
+You will see a list of available scripts to deploy.
+
+```bash
+? Select the script to deploy:
+❯ block-login
+  custom-claims
+  datadog-forwarder
+  idp-mapping
+  jit-users-migration
+  saml-attributes
+  set-user-metadata
+```
+
 ---
 
 ## Troubleshooting
