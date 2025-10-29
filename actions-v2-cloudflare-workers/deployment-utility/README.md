@@ -63,7 +63,7 @@ npm install
 ```
 
 ### 2 - Include the secrets
-Add to the `.env` file the secrets required by the example that you are deploying. Each example has it's own configuration guide, for instance: [`Injecting Custom Claims`](/actions-v2-cloudflare-workers/CUSTOM-CLAIMS.md)
+Add to the `.env` file the secrets required by the example that you are deploying. Each example has it's own configuration guide, for instance: [`Injecting Custom Claims`](/actions-v2-cloudflare-workers/CUSTOM-CLAIMS.md#environment-variables)
 
 ### 3 - Run the deploy node script
 ```bash
