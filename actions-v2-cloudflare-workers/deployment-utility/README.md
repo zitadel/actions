@@ -48,10 +48,10 @@ Before running the script, create an `.env` file and add the required variables,
 
 | Variable | Description |
 |-----------|--------------|
-| `CLOUDFLARE_API_TOKEN` | Cloudflare API token (not optional - used by the deploy script) |
-| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare Account ID (not optional - used by the deploy script) |
-| `SECRET_1` | Secret key to add to Worker env |
-| `SECRET_2` | Secret key to add to Worker env |
+| `CLOUDFLARE_API_TOKEN` | Cloudflare API token (not optional - used by the deployment script) |
+| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare Account ID (not optional - used by the deployment script) |
+| `SECRET_1` | Secret to add to Worker env |
+| `ETC` | Another secret to add to Worker env |
 
 ---
 
@@ -63,7 +63,7 @@ npm install
 ```
 
 ### 2 - Include the secrets
-Add to the `.env` file the secrets required by the worker, and add those secrets names to the `secrets` array in `deploy.js`
+Add to the `.env` file the secrets required by the example that you are deploying. Each example has it's own configuration guide, for instance: [`Injecting Custom Claims`](/actions-v2-cloudflare-workers/CUSTOM-CLAIMS.md)
 
 ### 3 - Run the deploy node script
 ```bash
@@ -81,13 +81,6 @@ To view the worker logs:
 To view or update the worker secrets:
 - 1. Open the worker view
 - 2. Go to `Settings` → `Variables and Secrets`
-
----
-
-## Notes
-- You can add more secrets by editing the `secrets` array in `deploy.js`.
-- The script automatically sets the `CLOUDFLARE_API_TOKEN` from your `.env` file.
-- Designed to integrate seamlessly with Zitadel Actions V2 for secure, automated deployments.
 
 
 
