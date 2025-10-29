@@ -18,25 +18,32 @@ if (!envConfig) {
 
 const scriptName = process.argv[2];
 if (!scriptName) {
-  console.error("Usage: npm start <script-name>");
+  console.error("ERROR: No script folder name provided");
+  console.error("USAGE: npm start <script-folder-name> for example: npm start custom-claims");
   process.exit(1);
 }
 
 const scriptPath = path.resolve(`../scripts/${scriptName}`);
-console.log(`🚀 Deploying script from folder: ${scriptPath}`);
 
-// Ensure required Cloudflare variables are present
-if (!envConfig.CLOUDFLARE_API_TOKEN || !envConfig.CLOUDFLARE_ACCOUNT_ID) {
-  console.error("ERROR: CLOUDFLARE_API_TOKEN or CLOUDFLARE_ACCOUNT_ID missing in .env");
+// Validate that the script path exists and is a directory
+if (!fs.existsSync(scriptPath) || !fs.lstatSync(scriptPath).isDirectory()) {
+  console.error(`ERROR: Script folder "${scriptPath}" does not exist or is not a directory`);
   process.exit(1);
 }
 
-// Only upload secrets defined in .env that do NOT start with "CLOUDFLARE"
-const secretsToUpload = Object.keys(envConfig).filter((k) => !k.startsWith("CLOUDFLARE"));
+// Ensure required Cloudflare variables are present
+if (!envConfig.CLOUDFLARE_API_TOKEN || !envConfig.CLOUDFLARE_ACCOUNT_ID) {
+  console.error("ERROR: CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID must be set in .env");
+  process.exit(1);
+}
+
+console.log(`Deploying Script from folder: ${scriptPath}`);
+
+const secretsToUpload = Object.keys(envConfig).filter((k) => !k.startsWith("CLOUDFLARE_"));
 
 const execOptions = {
   stdio: "inherit",
-  cwd: scriptPath, // ensures wrangler.toml in the script folder is used
+  cwd: scriptPath,
   env: {
     ...process.env,
     ...envConfig,
@@ -47,19 +54,17 @@ const execOptions = {
 // Upload each secret
 for (const key of secretsToUpload) {
   try {
-    console.log(`🔑 Syncing secret: ${key}`);
     execSync(`echo "${envConfig[key]}" | npx wrangler secret put ${key}`, execOptions);
-    console.log(`✅ Secret '${key}' synced successfully`);
+    console.log(`'${key}' secret successfully loaded`);
   } catch (err) {
-    console.error(`❌ ERROR: Failed to sync secret ${key}`, err);
+    console.error(`ERROR: Failed to load secret ${key}`, err);
   }
 }
 
 // Deploy the worker
 try {
-  console.log("🌀 Deploying to Cloudflare Workers...");
   execSync("npx wrangler deploy", execOptions);
-  console.log("✨ Deployment complete!");
+  console.log("Deployment complete!");
 } catch (err) {
-  console.error("❌ ERROR: Deployment failed", err);
+  console.error("ERROR: Deployment failed", err);
 }
