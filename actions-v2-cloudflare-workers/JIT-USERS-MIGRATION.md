@@ -39,11 +39,6 @@ Ensure the following environment variables are set:
 
 The signing keys are used for validating the webhook signature. Refer to [this guide](https://help.zitadel.com/how-to-validate-zitadel-actions-v2-signature-with-node.js) for details on generating and validating signing keys.
 
-## Update the deploy script to insert the environment variables:
-```bash
-const secrets = ["ZITADEL_DOMAIN", "ACCESS_TOKEN", "ZITADEL_ORG_ID", "LISTUSERS_SIGNING_KEY", "SETSESSION_SIGNING_KEY"];
-```
-
 ## Create the Targets
 
 To create a target, use the “CreateTarget” request from our [Postman collection](https://zitadel.com/docs/apis/introduction#postman-collection-beta), or check our API docs, sending the following body:
