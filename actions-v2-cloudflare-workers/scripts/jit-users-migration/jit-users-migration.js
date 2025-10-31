@@ -13,6 +13,7 @@ export default {
       ZITADEL_ORG_ID,
       SETSESSION_SIGNING_KEY,
       LISTUSERS_SIGNING_KEY,
+      SETPASSWORD_SIGNING_KEY
     } = env;
 
     const missing = [];
@@ -21,6 +22,7 @@ export default {
     if (!ZITADEL_ORG_ID) missing.push("ZITADEL_ORG_ID");
     if (!SETSESSION_SIGNING_KEY) missing.push("SETSESSION_SIGNING_KEY");
     if (!LISTUSERS_SIGNING_KEY) missing.push("LISTUSERS_SIGNING_KEY");
+    if (!SETPASSWORD_SIGNING_KEY) missing.push("SETPASSWORD_SIGNING_KEY");
 
     if (missing.length > 0) {
       console.error("[Init] Missing environment variables:", missing.join(", "));
@@ -34,6 +36,10 @@ export default {
 
     if (url.pathname === "/action/set-session") {
       return handleSetSession(req, env);
+    }
+
+    if (url.pathname === "/action/set-password") {
+      return handleSetPassword(req, env);
     }
 
     return new Response("Not found", { status: 404 });
@@ -116,6 +122,42 @@ const LEGACY_DB = {
     password: "Password1!",
   },
 };
+
+// --- Helper Function ---
+/**
+ * Retrieves and checks user metadata for migration status.
+ * @param {string} userId - The ID of the user.
+ * @returns {Promise<{ migrated: boolean, metadata: Array }>} - Migration status and metadata.
+ */
+async function getUserMigrationMetadata(userId) {
+  const metadataSearchBody = {
+    filters: [
+      {
+        keyFilter: {
+          key: "migratedFromLegacy",
+          method: "TEXT_FILTER_METHOD_EQUALS"
+        }
+      }
+    ]
+  };
+
+  const metadataSearchResponse = await fetch(`/v2/users/${userId}/metadata/search`, {
+    method: 'POST',
+    body: JSON.stringify(metadataSearchBody),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+
+  const metadata = (await metadataSearchResponse.json()).metadata || [];
+  const migratedMetadata = metadata.find(m => m.key === 'migratedFromLegacy');
+  const migratedValue = migratedMetadata ? Buffer.from(migratedMetadata.value, 'base64').toString('utf8') : null;
+
+  return {
+    migrated: migratedValue === 'true',
+    metadata
+  };
+}
 
 // --- Handlers ---
 
@@ -245,23 +287,15 @@ async function handleSetSession(req, env) {
     const userId = search?.session?.factors?.user?.id;
     const legacyLoginName = search?.session?.factors?.user?.loginName;
 
-    const metaRes = await fetch(`https://${ZITADEL_DOMAIN}/v2/users/${userId}/metadata/search`, {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${ACCESS_TOKEN}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        filters: [{ keyFilter: { key: "migratedFromLegacy", method: "TEXT_FILTER_METHOD_EQUALS" } }],
-      }),
-    });
+    const { migrated, metadata } = await getUserMigrationMetadata(userId);
 
-    const metaData = await metaRes.json();
-    const metadata = metaData.metadata || [];
-    const migratedValue = metadata.length ? atob(metadata[0].value) : null;
+    if (migrated) {
+      console.log("[SetSession] Skipping, already migrated");
+      return jsonResponse(response || {});
+    }
 
-    if (migratedValue === "true" || metadata.length === 0) {
-      console.log("[SetSession] Skipping, already migrated or no metadata");
+    if (metadata.length === 0) {
+      console.log("[SetSession] No metadata found, skipping password update");
       return jsonResponse(response || {});
     }
 
@@ -305,5 +339,55 @@ async function handleSetSession(req, env) {
   } catch (err) {
     console.error("[SetSession] Error:", err);
     return jsonResponse({ error: err.message }, 200);
+  }
+}
+
+async function handleSetPassword(req, env) {
+  const { ZITADEL_DOMAIN, ACCESS_TOKEN, SETPASSWORD_SIGNING_KEY } = env;
+
+  try {
+    const signatureHeader = req.headers.get("zitadel-signature");
+    if (!signatureHeader) return new Response("Missing signature", { status: 400 });
+
+    const { rawBody, jsonBody } = await readJsonBody(req);
+
+    const isValid = await verifySignature(signatureHeader, rawBody, SETPASSWORD_SIGNING_KEY);
+    if (!isValid) return new Response("Invalid signature", { status: 403 });
+
+    const { request, response } = jsonBody || {};
+    const userId = request?.userId;
+
+    if (!userId) {
+      console.error('Missing userId in SetPassword request');
+      return jsonResponse({ error: 'Missing userId in request' }, 400);
+    }
+
+    const { migrated, metadata } = await getUserMigrationMetadata(userId);
+
+    if (migrated) {
+      console.info('User already migrated, skipping password set for user:', userId);
+      return jsonResponse(response || {});
+    }
+    if (metadata.length === 0) {
+      console.info('No migration metadata found, skipping password set for user:', userId);
+      return jsonResponse(response || {});
+    }
+
+    console.info('SetPassword action successful, updating metadata for user:', userId);
+    await fetch(`https://${ZITADEL_DOMAIN}/v2/users/${userId}/metadata`, {
+      method: 'POST',
+      headers: {
+        "Authorization": `Bearer ${ACCESS_TOKEN}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        metadata: [{ key: "migratedFromLegacy", value: Buffer.from("true").toString("base64") }]
+      })
+    });
+
+    return jsonResponse(response || {});
+  } catch (e) {
+    console.error('SetPassword action error:', e);
+    return jsonResponse({ error: 'Internal server error' }, 500);
   }
 }
