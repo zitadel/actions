@@ -117,8 +117,6 @@ Open your **Zitadel Console** and navigate to the **Actions** tab.
    - Create a new Action for the SetPassword webhook → **Response**
    - Select the Method **/zitadel.user.v2.UserService/SetPassword**
 
-Copy the signing key returned, this must be saved as the `SETSESSION_SIGNING_KEY` environment variable.
-
 ## Legacy Database
 
 The legacy database is mocked in this project. Replace the `LEGACY_DB` object in `server.js` with actual calls to your legacy database.
@@ -160,4 +158,4 @@ To view or update the worker secrets:
 ## Notes
 
 - Ensure that the environment variables are correctly set before running the server.
-- The script assumes that the legacy database contains user details in the format specified in the `LEGACY_DB` object in `server.js`.
+- The script assumes that the legacy database contains user details in the format specified in the `LEGACY_DB` object in the `jit-users-migration.js` script.
