@@ -119,7 +119,7 @@ Open your **Zitadel Console** and navigate to the **Actions** tab.
 
 ## Legacy Database
 
-The legacy database is mocked in this project. Replace the `LEGACY_DB` object in `server.js` with actual calls to your legacy database.
+The legacy database is mocked in this project. Replace the `LEGACY_DB` object in `jit-users-migration.js` with actual calls to your legacy database.
 
 You can test the migration flow using this mocked profile:
 
