@@ -2,7 +2,7 @@ export default {
   async fetch(req, env) {
     const url = new URL(req.url);
     
-    if (req.method !== "POST") {
+    if (req.method !== "POST" || url.pathname !== "/") {
       return new Response("Method not allowed", { status: 405 });
     }
 
