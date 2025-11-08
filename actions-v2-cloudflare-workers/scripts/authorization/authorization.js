@@ -62,6 +62,10 @@ export default {
         },
       });
 
+      if (!metaResp.ok) {
+        console.error(`[ListOrganizationMetadata] API call failed: ${metaResp.status} ${metaResp.statusText}`);
+        return jsonResponse({ append_claims: [] });
+      }
       const metaArr = (await metaResp.json()).metadata || [];
       const metaToPerms = new Map();
       for (const { key, value } of metaArr) {
