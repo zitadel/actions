@@ -1,0 +1,6 @@
+name = "authorization"
+main = "./authorization.js"
+compatibility_date = "2025-11-06"
+workers_dev = true
+[observability.logs]
+enabled = true
