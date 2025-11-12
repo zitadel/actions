@@ -61,9 +61,9 @@ Refer to the [`deployment utility`](deployment-utility/README.md) documentation 
 The `wrangler.toml` file used to upload the worker enables observability, which makes it easier to troubleshoot issues with the code. 
 
 To view the worker logs:
-- 1. Open the worker view
-- 2. Go to `Observability`
+1. Open the worker view
+2. Go to `Observability`
 
 To view or update the worker secrets:
-- 1. Open the worker view
-- 2. Go to `Settings` → `Variables and Secrets`
+1. Open the worker view
+2. Go to `Settings` → `Variables and Secrets`
