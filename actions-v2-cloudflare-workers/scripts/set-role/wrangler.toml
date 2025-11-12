@@ -1,0 +1,6 @@
+name = "set-role"
+main = "./set-role.js"
+compatibility_date = "2025-11-11"
+workers_dev = true
+[observability.logs]
+enabled = true
