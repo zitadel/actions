@@ -50,7 +50,7 @@ export default {
       const { resourceOwner, aggregateID } = jsonBody || {};
       const userId = aggregateID;
       const organizationId = resourceOwner;
-      const roleKeys = ROLE_KEYS.split(",");
+      const roleKeys = ROLE_KEYS.split(",").map(k => k.trim()).filter(k => k.length > 0);
 
       if (!userId || !PROJECT_ID || !organizationId || roleKeys.length === 0) {
         console.error("Missing required parameters for set-role action");
