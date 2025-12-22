@@ -31,7 +31,7 @@ To create a target, use the “CreateTarget” request from our [Postman collect
 
 ```json
 {
-   "name": "GroupsClaim Webhook",
+   "name": "Groups Claim Webhook",
    "restCall": {
        "interruptOnError": false
    },
