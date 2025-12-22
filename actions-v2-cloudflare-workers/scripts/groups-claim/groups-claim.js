@@ -87,19 +87,19 @@ async function verifySignature(signatureHeader, rawBody, signingKey) {
  * Construct groups claim response
  */
 function buildGroupsClaimResponse(jsonBody) {
-  const roles = [];
+  const rolesSet = new Set();
 
   if (jsonBody.user_grants) {
     jsonBody.user_grants.forEach(grant => {
       if (grant.roles) {
-        roles.push(...grant.roles);
+        grant.roles.forEach(role => rolesSet.add(role));
       }
     });
   }
 
   return {
     append_claims: [
-      { key: "groups", value: roles },
+      { key: "groups", value: Array.from(rolesSet) },
     ],
   };
 }
