@@ -1,0 +1,6 @@
+name = "groups-claim"
+main = "./groups-claim.js"
+compatibility_date = "2025-12-22"
+workers_dev = true
+[observability.logs]
+enabled = true
