@@ -63,7 +63,7 @@ Open your **Zitadel Console** and navigate to the **Actions** tab.
 
 ## Deployment
 
-Check the [`deployment utility`](../deployment-utility/README.md) for instructions on how to deploy this code and the required environment variables to Cloudflare workers.
+Check the [`deployment utility`](./deployment-utility/README.md) for instructions on how to deploy this code and the required environment variables to Cloudflare workers.
 
 ---
 
