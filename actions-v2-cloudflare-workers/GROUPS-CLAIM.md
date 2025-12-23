@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="../assets/logo.png" alt="Zitadel Logo" max-height="200px" width="auto" />
+    <img src="./assets/logo.png" alt="Zitadel Logo" max-height="200px" width="auto" />
 </p>
 
 # Groups Claim Injection
