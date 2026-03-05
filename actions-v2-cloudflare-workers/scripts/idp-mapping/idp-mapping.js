@@ -115,7 +115,10 @@ function mapIdpAttributes(receivedObject, IDP_ID_1, IDP_ID_2) {
       nickName: attrs.FullName?.[0],
       displayName: attrs.FullName?.[0],
     };
+    // Required for Login V2 user creation flows (first login)
     receivedObject.addHumanUser.idpLinks[0].userName = attrs.Email?.[0];
+    // Required for Login V2 account linking to work
+    receivedObject.idpInformation.userName = attrs.Email?.[0];
     console.log("[Mapping] Attributes mapped for SAML provider");
   }
 
