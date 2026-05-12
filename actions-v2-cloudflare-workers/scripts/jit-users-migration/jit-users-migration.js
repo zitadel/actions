@@ -30,15 +30,15 @@ export default {
     }
 
     // --- Route dispatch ---
-    if (url.pathname === "/action/list-users") {
+    if (url.pathname === "/list-users") {
       return handleListUsers(req, env);
     }
 
-    if (url.pathname === "/action/set-session") {
+    if (url.pathname === "/set-session") {
       return handleSetSession(req, env);
     }
 
-    if (url.pathname === "/action/set-password") {
+    if (url.pathname === "/set-password") {
       return handleSetPassword(req, env);
     }
 
@@ -98,6 +98,47 @@ function jsonResponse(obj, status = 200) {
   });
 }
 
+function isAlreadyExistsError(status, result) {
+  const errorText = [
+    result?.message,
+    result?.error,
+    result?.details?.message,
+    result?.details?.description,
+    result?.details?.reason,
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+
+  return status === 409 || errorText.includes("already exists") || errorText.includes("alreadyexist");
+}
+
+async function fetchUserByIdWithRetry(userId, ZITADEL_DOMAIN, ACCESS_TOKEN, maxRetries = 1) {
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    const userSearch = await fetch(`https://${ZITADEL_DOMAIN}/v2/users/${userId}`, {
+      headers: {
+        "Authorization": `Bearer ${ACCESS_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    const userData = await userSearch.json();
+    const user = userData.user;
+
+    if (userSearch.ok && user?.userId) {
+      return user;
+    }
+
+    console.warn(`[ListUsers] User fetch attempt ${attempt + 1} failed for ${userId} with status ${userSearch.status}:`, userData);
+
+    if (attempt < maxRetries) {
+      await new Promise(resolve => setTimeout(resolve, 150));
+    }
+  }
+
+  return null;
+}
+
 // --- Simple random password generator ---
 function generateRandomPassword() {
   const chars =
@@ -121,6 +162,46 @@ const LEGACY_DB = {
     email: "legacy-user@gmail.com",
     password: "Password1!",
   },
+  "john-doe": {
+    userId: "db-163840776835432347",
+    username: "john-doe",
+    givenName: "John",
+    familyName: "Doe",
+    displayName: "John Doe",
+    preferredLanguage: "en",
+    email: "john-doe@gmail.com",
+    password: "Password1!",
+  },
+  "jane-doe": {
+    userId: "db-163840776835432348",
+    username: "jane-doe",
+    givenName: "Jane",
+    familyName: "Doe",
+    displayName: "Jane Doe",
+    preferredLanguage: "en",
+    email: "jane-doe@gmail.com",
+    password: "Password1!",
+  },
+  "robert-jordan": {
+    userId: "db-163840776835432349",
+    username: "robert-jordan",
+    givenName: "Robert",
+    familyName: "Jordan",
+    displayName: "Robert Jordan",
+    preferredLanguage: "en",
+    email: "robert-jordan@gmail.com",
+    password: "Password1!",
+  },
+  "robbin-hobb": {
+    userId: "db-163840776835432350",
+    username: "robbin-hobb",
+    givenName: "Robbin",
+    familyName: "Hobb",
+    displayName: "Robbin Hobb",
+    preferredLanguage: "en",
+    email: "robbin-hobb@gmail.com",
+    password: "Password1!",
+  },
 };
 
 // --- Helper Function ---
@@ -129,7 +210,7 @@ const LEGACY_DB = {
  * @param {string} userId - The ID of the user.
  * @returns {Promise<{ migrated: boolean, metadata: Array }>} - Migration status and metadata.
  */
-async function getUserMigrationMetadata(userId) {
+async function getUserMigrationMetadata(userId, ZITADEL_DOMAIN, ACCESS_TOKEN) {
   const metadataSearchBody = {
     filters: [
       {
@@ -141,17 +222,24 @@ async function getUserMigrationMetadata(userId) {
     ]
   };
 
-  const metadataSearchResponse = await fetch(`/v2/users/${userId}/metadata/search`, {
+  const metadataSearchResponse = await fetch(`https://${ZITADEL_DOMAIN}/v2/users/${userId}/metadata/search`, {
     method: 'POST',
     body: JSON.stringify(metadataSearchBody),
     headers: {
+      "Authorization": `Bearer ${ACCESS_TOKEN}`,
       "Content-Type": "application/json"
     }
   });
 
-  const metadata = (await metadataSearchResponse.json()).metadata || [];
+  const metadataSearchResult = await metadataSearchResponse.json();
+  if (!metadataSearchResponse.ok) {
+    console.error(`[Metadata] Search failed for user ${userId} with status ${metadataSearchResponse.status}:`, metadataSearchResult);
+    throw new Error(`Metadata search failed with status ${metadataSearchResponse.status}`);
+  }
+
+  const metadata = metadataSearchResult.metadata || [];
   const migratedMetadata = metadata.find(m => m.key === 'migratedFromLegacy');
-  const migratedValue = migratedMetadata ? Buffer.from(migratedMetadata.value, 'base64').toString('utf8') : null;
+  const migratedValue = migratedMetadata ? atob(migratedMetadata.value) : null;
 
   return {
     migrated: migratedValue === 'true',
@@ -220,17 +308,22 @@ async function handleListUsers(req, env) {
       }),
     });
 
-    const created = await createResp.json();
+    const createResult = await createResp.json();
+    if (!createResp.ok) {
+      console.error(`[ListUsers] User create failed for ${loginName} with status ${createResp.status}:`, createResult);
 
-    const userSearch = await fetch(`https://${ZITADEL_DOMAIN}/v2/users/${created.id}`, {
-      headers: {
-        "Authorization": `Bearer ${ACCESS_TOKEN}`,
-        "Content-Type": "application/json",
-      },
-    });
+      if (!isAlreadyExistsError(createResp.status, createResult)) {
+        throw new Error(`User create failed with status ${createResp.status}`);
+      }
 
-    const userData = await userSearch.json();
-    const u = userData.user || {};
+      console.warn(`[ListUsers] User ${legacy.userId} already exists, retrying fetch`);
+    }
+
+    const u = await fetchUserByIdWithRetry(legacy.userId, ZITADEL_DOMAIN, ACCESS_TOKEN, 1);
+    if (!u?.userId) {
+      console.error(`[ListUsers] User ${legacy.userId} could not be loaded after create or conflict recovery`);
+      return jsonResponse(resp);
+    }
 
     return jsonResponse({
       details: { totalResult: "1", timestamp: new Date().toISOString() },
@@ -287,7 +380,7 @@ async function handleSetSession(req, env) {
     const userId = search?.session?.factors?.user?.id;
     const legacyLoginName = search?.session?.factors?.user?.loginName;
 
-    const { migrated, metadata } = await getUserMigrationMetadata(userId);
+    const { migrated, metadata } = await getUserMigrationMetadata(userId, ZITADEL_DOMAIN, ACCESS_TOKEN);
 
     if (migrated) {
       console.log("[SetSession] Skipping, already migrated");
@@ -362,7 +455,7 @@ async function handleSetPassword(req, env) {
       return jsonResponse({ error: 'Missing userId in request' }, 400);
     }
 
-    const { migrated, metadata } = await getUserMigrationMetadata(userId);
+    const { migrated, metadata } = await getUserMigrationMetadata(userId, ZITADEL_DOMAIN, ACCESS_TOKEN);
 
     if (migrated) {
       console.info('User already migrated, skipping password set for user:', userId);
@@ -381,7 +474,7 @@ async function handleSetPassword(req, env) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        metadata: [{ key: "migratedFromLegacy", value: Buffer.from("true").toString("base64") }]
+        metadata: [{ key: "migratedFromLegacy", value: btoa("true") }]
       })
     });
 
